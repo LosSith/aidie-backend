@@ -1,4 +1,5 @@
 const usersService = require('../services/users.service.js');
+const jwt = require('jsonwebtoken');
 
 class UsersController {
     async getUsers(req, res) {
@@ -66,7 +67,9 @@ class UsersController {
         try {
             const user = await usersService.getUserByEmailAndPassword(email, password);
             if (user) {
-                res.json({ message: 'Hello' });
+                const { password, rest } = user;
+                const token = jwt.sign({user: rest}, 'JWT');
+                res.json({ token });
             } else {
                 res.json({ message: 'Login failed' });
             }
