@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ message: "Token missing" });
     }
 
-    const decoded = jwt.verify(token, "JWT_SECRET");
+    const decoded = jwt.verify(token, "JWT");
 
     const user = await UsersCollection.getUserByEmail(decoded.email);
 
@@ -28,7 +28,7 @@ const authMiddleware = async (req, res, next) => {
 
     req.user = {
       email: decoded.email,
-      nombre: user.nombre,
+      name: user.name,
     };
 
     next();
