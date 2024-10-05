@@ -4,6 +4,13 @@ const usersService = require("../services/users.service.js");
 
 const authMiddleware = async (req, res, next) => {
   try {
+
+    const excludedPaths = ['/login', '/register'];
+
+    if (excludedPaths.includes(req.path)) {
+      return next();
+    }
+
     const Authorization = req.header("Authorization");
 
     if (!Authorization || !Authorization.startsWith("Bearer ")) {
