@@ -21,7 +21,7 @@ class UsersService {
 
     async createUser(user) {
         try {
-            const newUser = await database.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *', [user.name, user.email, user.password]);
+            const newUser = await database.query('INSERT INTO users (name, lastname, email, birthdate, password, address, region, commune) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [user.name, user.lastname, user.email, user.birthdate, user.password, user.address, user.region, user.commune]);
             return newUser.rows[0];
         } catch (error) {
             return { error };
@@ -41,6 +41,33 @@ class UsersService {
         try {
             const deletedUser = await database.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
             return deletedUser.rows[0];
+        } catch (error) {
+            return { error };
+        }
+    }
+
+    async getUserByEmail(email) {
+        try {
+            const user = await database.query('SELECT * FROM users WHERE email = $1', [email]);
+            return user.rows[0];
+        } catch (error) {
+            return { error };
+        }
+    }
+
+    async getUserByEmailAndPassword(email, password) {
+        try {
+            const user = await database.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password]);
+            return user.rows[0];
+        } catch (error) {
+            return { error };
+        }
+    }
+
+    async getEventsByUserId(id) { // move to events service
+        try {
+            const events = await database.query('SELECT * FROM events WHERE id IN (SELECT idEvent FROM userEvents WHERE idUser = $1)', [id]);
+            return events.rows;
         } catch (error) {
             return { error };
         }

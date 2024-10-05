@@ -1,16 +1,12 @@
 const { Router } = require('express');
-const database = require('../config/dbConfig.js');
+const usersController = require('../controllers/users.controller.js');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    database.query('SELECT * FROM users')
-        .then(result => {
-            res.json(result.rows);
-        })
-        .catch(error => {
-            res.json({ error });
-        });
-});
+router.get('/', usersController.getUsers);
+router.post('/', usersController.createUser);
+router.get('/:id', usersController.getUserById);
+router.put('/:id', usersController.updateUser);
+router.delete('/:id', usersController.deleteUser);
 
 module.exports = router;
