@@ -50,6 +50,16 @@ class UsersController {
             res.json({ error });
         }
     }
+
+    async getUserByEmailAndPassword(req, res) {
+        const { email, password } = req.body;
+        try {
+            const user = await usersService.getUserByEmailAndPassword(email, password);
+            res.json(user);
+        } catch (error) {
+            res.json({ error });
+        }
+    }
 }
 
 module.exports = new UsersController();
