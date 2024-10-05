@@ -7,7 +7,7 @@ class UsersController {
             const users = await usersService.getUsers();
             res.json(users);
         } catch (error) {
-            res.json({ error });
+            res.status(400).json({ error });
         }
     }
 
@@ -17,7 +17,7 @@ class UsersController {
             const user = await usersService.getUserById(id);
             res.json(user);
         } catch (error) {
-            res.json({ error });
+            res.status(404).json({ error });
         }
     }
 
@@ -58,7 +58,7 @@ class UsersController {
             const user = await usersService.getUserByEmailAndPassword(email, password);
             res.json(user);
         } catch (error) {
-            res.json({ error });
+            res.status(404).json({ error });
         }
     }
     
@@ -71,7 +71,7 @@ class UsersController {
                 const token = jwt.sign({user: rest}, 'JWT');
                 res.json({ token });
             } else {
-                res.json({ message: 'Login failed' });
+                res.status(401).json({ message: 'Login failed' });
             }
         } catch (error) {
             res.json({ error });
