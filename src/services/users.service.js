@@ -30,7 +30,10 @@ class UsersService {
 
     async updateUser(id, user) {
         try {
-            const updatedUser = await database.query('UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *', [user.name, user.email, user.password, id]);
+            const updatedUser = await database.query(
+                'UPDATE users SET name = $1, lastname = $2, email = $3, birthdate = $4, password = $5, address = $6, region = $7, commune = $8 WHERE id = $9 RETURNING *',
+                [user.name, user.lastname, user.email, user.birthdate, user.password, user.address, user.region, user.commune, id]
+            );
             return updatedUser.rows[0];
         } catch (error) {
             return { error };
