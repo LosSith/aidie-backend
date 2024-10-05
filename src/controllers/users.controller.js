@@ -60,6 +60,20 @@ class UsersController {
             res.json({ error });
         }
     }
+    async postLogin (req, res) {
+        const { email, password } = req.body;
+        try {
+            const user = await usersService.getUserByEmailAndPassword(email, password);
+            if (user) {
+                // generar token usando datos del usuario
+            } else {
+                res.json({ message: 'Login failed' });
+            }
+        } catch (error) {
+            res.json({ error });
+    }   
 }
+}
+
 
 module.exports = new UsersController();
