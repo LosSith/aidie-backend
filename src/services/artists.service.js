@@ -54,6 +54,15 @@ class ArtistsService {
             return { error };
         }
     }
+
+    async setArtistLikeFromUser(idArtist, idUser) {
+        try {
+            await database.query('INSERT INTO userArtists (idUser, idArtist) VALUES ($1, $2)', [idUser, idArtist]);
+            return { message: 'Like setted' };
+        } catch (error) {
+            return { error };
+        }
+    }
 }
 
 module.exports = new ArtistsService();

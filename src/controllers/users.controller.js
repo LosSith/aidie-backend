@@ -60,6 +60,7 @@ class UsersController {
             res.json({ error });
         }
     }
+    
     async postLogin (req, res) {
         const { email, password } = req.body;
         try {
