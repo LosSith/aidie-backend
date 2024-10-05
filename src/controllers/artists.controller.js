@@ -60,16 +60,6 @@ class ArtistsController {
             res.json({ error });
         }
     }
-
-    async setArtistLikeFromUser(req, res) {
-        const { idArtist, idUser } = req.body;
-        try {
-            const message = await artistsService.setArtistLikeFromUser(idArtist, idUser);
-            res.json(message);
-        } catch (error) {
-            res.json({ error });
-        }
-    }
 }
 
 module.exports = new ArtistsController();

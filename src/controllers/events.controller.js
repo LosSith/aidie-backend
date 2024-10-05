@@ -60,6 +60,16 @@ class EventsController {
             res.json({ error });
         }
     }
+
+    async setEventLikeFromUser(req, res) {
+        const { idUser, idEvent } = req.body;
+        try {
+            const event = await eventsService.setEventLikeFromUser(idUser, idEvent);
+            res.json(event);
+        } catch (error) {
+            res.json({ error });
+        }
+    }
 }
 
 module.exports = new EventsController();

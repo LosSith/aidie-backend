@@ -60,6 +60,15 @@ class EventsService {
             return { error };
         }
     }
+
+    async setEventLikeFromUser(idEvent, idUser) {
+        try {
+            const newLike = await database.query('INSERT INTO userEvents (idUser, idEvent) VALUES ($1, $2) RETURNING *', [idUser, idEvent]);
+            return newLike.rows[0];
+        } catch (error) {
+            return { error };
+        }
+    }
 }
 
 module.exports = new EventsService();
