@@ -66,15 +66,6 @@ class UsersService {
             return { error };
         }
     }
-
-    async getEventsByUserId(id) { // move to events service
-        try {
-            const events = await database.query('SELECT * FROM events WHERE id IN (SELECT idEvent FROM userEvents WHERE idUser = $1)', [id]);
-            return events.rows;
-        } catch (error) {
-            return { error };
-        }
-    }
 }
 
 module.exports = new UsersService();
