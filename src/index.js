@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const usersRouter = require('./routes/users.router.js');
+const eventsRouter = require('./routes/events.router.js');
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
