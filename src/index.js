@@ -11,10 +11,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send(`Hello! DatabaseURL = ${process.env.DB_URL}`);
-});
-
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
 app.use('/artists', artistsRouter);
