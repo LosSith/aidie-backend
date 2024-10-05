@@ -9,6 +9,7 @@ router.get('/:id', eventsController.getEventById);
 router.put('/:id', eventsController.updateEvent);
 router.delete('/:id', eventsController.deleteEvent);
 router.get('/user/:id', eventsController.getEventsByUserId);
+router.post('/like', eventsController.setEventLikeFromUser);
 
 module.exports = router;
 
