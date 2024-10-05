@@ -67,7 +67,7 @@ class UsersController {
         try {
             const user = await usersService.getUserByEmailAndPassword(email, password);
             if (user) {
-                const { password, rest } = user;
+                const { password, ...rest } = user;
                 const token = jwt.sign({user: rest}, 'JWT');
                 res.json({ token });
             } else {
