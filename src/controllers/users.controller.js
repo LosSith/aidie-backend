@@ -24,7 +24,7 @@ class UsersController {
         const user = req.body;
         try {
             const newUser = await usersService.createUser(user);
-            res.json(newUser);
+            res.json({ message: 'successfully registered user' });
         } catch (error) {
             res.json({ error });
         }
@@ -65,7 +65,7 @@ class UsersController {
         try {
             const user = await usersService.getUserByEmailAndPassword(email, password);
             if (user) {
-                // generar token usando datos del usuario
+                res.json({ message: 'Hello' });
             } else {
                 res.json({ message: 'Login failed' });
             }
