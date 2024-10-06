@@ -3,19 +3,19 @@ const { header, param, body, validationResult } = require("express-validator");
 const addValidator = [
   body("email")
     .notEmpty()
-    .withMessage("Agrega Tu email")
+    .withMessage("Please provide your email")
     .isEmail()
-    .withMessage("Formato Incorrecto"),
+    .withMessage("Invalid email format"),
 
   body("password")
     .notEmpty()
-    .withMessage("Agrega tu contraseña")
+    .withMessage("Please provide your password")
     .isLength({ min: 8 })
-    .withMessage("La contraseña debe tener al menos 8 caracteres")
+    .withMessage("Password must be at least 8 characters long")
     .matches(/[A-Za-z]/)
-    .withMessage("La contraseña debe contener al menos una letra")
+    .withMessage("Password must contain at least one letter")
     .matches(/\d/)
-    .withMessage("La contraseña debe contener al menos un número"),
+    .withMessage("Password must contain at least one number"),
 
   (req, res, next) => {
     const errors = validationResult(req).mapped();
