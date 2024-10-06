@@ -22,8 +22,8 @@ class EventsService {
     async createEvent(event) {
         try {
             const newEvent = await database.query(
-                'INSERT INTO events (id, date, location, presaledate, generalsaledate, imageurl, id_artist, description, name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-                [event.id, event.date, event.location, event.presaledate, event.generalsaledate, event.imageurl, event.id_artist, event.description, event.name]
+                'INSERT INTO events (id, date, location, presaledate, generalsaledate, imageurl, id_artist, description, name, event_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+                [event.id, event.date, event.location, event.presaledate, event.generalsaledate, event.imageurl, event.id_artist, event.description, event.name, event.event_url]
             );
             return newEvent.rows[0];
         } catch (error) {
@@ -34,8 +34,8 @@ class EventsService {
     async updateEvent(id, event) {
         try {
             const updatedEvent = await database.query(
-                'UPDATE events SET date = $1, location = $2, presaledate = $3, generalsaledate = $4, imageurl = $5, id_artist = $6, description = $7, name = $8 WHERE id = $9 RETURNING *',
-                [event.date, event.location, event.presaledate, event.generalsaledate, event.imageurl, event.id_artist, event.description, event.name, id]
+                'UPDATE events SET date = $1, location = $2, presaledate = $3, generalsaledate = $4, imageurl = $5, id_artist = $6, description = $7, name = $8, event_url = $9 WHERE id = $10 RETURNING *',
+                [event.date, event.location, event.presaledate, event.generalsaledate, event.imageurl, event.id_artist, event.description, event.name, event.event_url, id]
             );
             return updatedEvent.rows[0];
         } catch (error) {
