@@ -18,10 +18,13 @@ const addValidator = [
     .withMessage("La contraseña debe contener al menos un número"),
 
   (req, res, next) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req).mapped();
+    const errorMessages = [];
     if (Object.keys(errors).length) {
-      const errorMessages = errors.errors.map((e) => e.msg).join(", ");
-      res.status(400).send({errors: errorMessages});
+      Object.keys(errors).forEach((key) => {
+        errorMessages.push({field: errors[key].path, message: errors[key].msg});
+      });
+      res.status(400).send({ errors: errorMessages });
     } else {
       next();
     }
