@@ -3,7 +3,7 @@ const eventsService = require('../services/events.service.js');
 class EventsController {
     async getEvents(req, res) {
         try {
-            const events = await eventsService.getEvents();
+            const events = await eventsService.getEvents(req.user.id);
             res.json(events);
         } catch (error) {
             res.json({ error });

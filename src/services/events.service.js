@@ -1,10 +1,16 @@
 const database = require('../config/dbConfig.js');
 
 class EventsService {
-    async getEvents() {
+    async getEvents(userId) {
         try {
             const events = await database.query('SELECT * FROM events');
+            // check if events are liked by current user
+            for (const event of events.rows) {
+                const liked = await database.query('SELECT * FROM userEvents WHERE idUser = $1 AND idEvent = $2', [userId, event.id]);
+                event.liked = liked.rows.length > 0;
+            }
             return events.rows;
+
         } catch (error) {
             return { error };
         }
@@ -63,6 +69,7 @@ class EventsService {
 
     async setEventLikeFromUser(idEvent, idUser) {
         try {
+            console.log({idUser, idEvent});
             const newLike = await database.query('INSERT INTO userEvents (idUser, idEvent) VALUES ($1, $2) RETURNING *', [idUser, idEvent]);
             return newLike.rows[0];
         } catch (error) {
