@@ -19,11 +19,11 @@ const addValidator = [
 
   (req, res, next) => {
     const errors = validationResult(req).mapped();
-    const errorMessages = [];
     if (Object.keys(errors).length) {
-      Object.keys(errors).forEach((key) => {
-        errorMessages.push({field: errors[key].path, message: errors[key].msg});
-      });
+      const errorMessages = Object.keys(errors).reduce((acc, key) => {
+        acc.push({ field: errors[key].path, message: errors[key].msg });
+        return acc;
+      }, []);
       res.status(400).send({ errors: errorMessages });
     } else {
       next();
