@@ -52,7 +52,7 @@ class EventsController {
     }
 
     async getEventsByUserId(req, res) {
-        const id = req.params.id;
+        const id = req.user.id;
         try {
             const events = await eventsService.getEventsByUserId(id);
             res.json(events);
