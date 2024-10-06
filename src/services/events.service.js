@@ -70,6 +70,14 @@ class EventsService {
     async setEventLikeFromUser(idEvent, idUser) {
         try {
             console.log({idUser, idEvent});
+
+            // check if like already exists
+            const existingLike = await database.query('SELECT * FROM userEvents WHERE idUser = $1 AND idEvent = $2', [idUser, idEvent]);
+            if (existingLike.rows.length > 0) {
+                await database.query('DELETE FROM userEvents WHERE idUser = $1 AND idEvent = $2', [idUser, idEvent]);
+                return { message: 'Like removed' };
+            }
+
             const newLike = await database.query('INSERT INTO userEvents (idUser, idEvent) VALUES ($1, $2) RETURNING *', [idUser, idEvent]);
             return newLike.rows[0];
         } catch (error) {
