@@ -16,10 +16,10 @@ class MailingService {
     async sendRecomendationsEmail(user, events) {
         const destination = user.email;
         const subject = 'Recommended events for you';
-        const html = `<p>Hi ${user.name}, we have some events that you might like!</p>`;
+        let html = `<p>Hi ${user.name}, we have some events that you might like!</p>`;
 
         events.forEach(event => {
-            html += `<p>${event.name} - ${event.url}</p>`;
+            html += `<p>${event.name} - ${event.event_url}</p>`;
         });
 
         const mailOptions = {

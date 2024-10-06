@@ -14,5 +14,10 @@ module.exports = {
             user: process.env.MAIL_AUTH_USER,
             pass: process.env.MAIL_AUTH_PASS,
         },
-    }
+    },
+    openai: {
+        orgId: process.env.OPEN_AI_ORG_ID,
+        projectId: process.env.OPEN_AI_PROJECT_ID,
+        apiKey: process.env.OPEN_AI_API_KEY,
+    },
 };
